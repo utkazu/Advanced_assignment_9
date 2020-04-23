@@ -1,0 +1,4 @@
+<%= form_with(model: comment, url: "/book_comments/#{book.id}/create") do |f| %>
+  <%= f.text_area :comment, rows: "3", style: "min-width: 100%;" %><br>
+  <%= f.submit "送信", class: "btn btn-primary"%>
+<% end %>

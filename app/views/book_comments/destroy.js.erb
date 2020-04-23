@@ -1,0 +1,2 @@
+$("#book-detail").html("<%= j(render 'books/book_show_row', { user: @book.user, book: @book}) %>");
+$("#comment-index").html("<%= j(render 'books/book_comments', comments: @comments) %>");

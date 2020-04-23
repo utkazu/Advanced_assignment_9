@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <span class="logo">Bookers</span>
+            <ul class="nav nav-pills">
+              <% if user_signed_in? %>
+                <li role="presentation">
+                  <%= link_to user_path(current_user.id) do %>
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to users_path do %>
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to books_path do %>
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Books
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> logout
+                  <% end %>
+                </li>
+              <% else %>
+                <li role="presentation">
+                  <%= link_to root_path do %>
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to home_about_path do %>
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span> About
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to new_user_registration_path do %>
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> sign up
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to new_user_session_path do %>
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> login
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header><!-- /header -->
+    <% if user_signed_in? %>
+    <div class="container">
+      <div class="row">
+        <div　class="col-xs-8 com-xs-offset-2">
+          <%= render 'layouts/search_form' %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

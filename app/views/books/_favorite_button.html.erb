@@ -1,0 +1,9 @@
+<% if Favorite.find_by(user_id: current_user.id, book_id: book.id) %>
+  <%= link_to "/favorites/#{book.id}/destroy", method: :post, remote: true do %>
+    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> <%= book.favorites.count %>
+  <% end%>
+<% else %>
+  <%= link_to "/favorites/#{book.id}/create", method: :post, remote: true do %>
+    <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> <%= book.favorites.count %>
+  <% end %>
+<% end %>

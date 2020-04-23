@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-3">
+			<%= render 'users/template', {user: @user, book: @book_new} %>
+		</div>
+		<div class="col-xs-9">
+			<h2>Book detail</h2>
+			<table class="table">
+				<tbody id="book-detail">
+					<%= render 'books/book_show_row', { user: @user, book: @book} %>
+				</tbody>
+			</table>
+			<div id="comment-index">
+				<%= render 'books/book_comments', comments: @comments %>
+			</div>
+			<div id="comment-form">
+				<%= render 'books/form_book_comment', comment: @comment, book: @book %>
+			</div>
+		</div>
+	</div>
+</div>
