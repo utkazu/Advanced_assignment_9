@@ -4,12 +4,33 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     @book = Book.new
     @users = User.all
+
+    @currentUserEntry = UserRoom.where(user_id: current_user.id)
+    @userEntry = UserRoom.where(user_id: @user.id)
   end
 
   def show
     @user = User.find(params[:id])
     @book = Book.new
     @books = Book.where(user_id: @user.id)
+
+    @currentUserEntry = UserRoom.where(user_id: current_user.id)
+    @userEntry = UserRoom.where(user_id: @user.id)
+    #ここはもっといいやり方ありそう
+    if @user.id != current_user.id
+      @currentUserEntry.each do |cu|
+        @userEntry.each do |u|
+          if cu.room_id == u.room_id
+            @isRoom = true
+            @roomId = cu.room_id
+          end
+        end
+      end
+      if !@isRoom
+        @room = Room.new
+        @entry = UserRoom.new
+      end
+    end
   end
 
   def edit
@@ -43,6 +64,8 @@ class UsersController < ApplicationController
     @headline = "Followers"
     render 'show_follow'
   end
+
+
 
   private
 

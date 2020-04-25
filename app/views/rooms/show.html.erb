@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <% @entries.each do |entry| %>
+        <% if entry.user_id != current_user.id%>
+          <h1><%= entry.user.name %>さんとのチャット</h1>
+          <div id="user_info" hidden>
+            <%= attachment_image_tag entry.user, :profile_image, format: 'jpeg', size: '50x50' %><br>
+            <%= entry.user.name %>
+          </div>
+        <% end %>
+      <% end %>
+
+<div id="current_user_info" hidden>
+  <%= attachment_image_tag current_user, :profile_image, format: 'jpeg', size: '50x50' %><br>
+  <%= current_user.name %>
+</div>
+
+      <table class="table">
+        <tbody id="chat-messages">
+          <% if @chats.present? %>
+            <% @chats.each do |chat| %>
+              <%= render 'chats/chat_message', chat: chat %>
+            <% end %>
+          <% else %>
+            <td>あなた</td>
+            <td>あなたのコメント</td>
+            <td>相手のコメント</td>
+            <td>相手</td>
+          <% end %>
+        </tbody>
+      </table>
+
+      <input type="text" id="chat-input" placeholder="新しいメッセージを作成">
+      <div id="chat-user-id" hidden><%= current_user.id %></div>
+      <div id="chat-room-id" hidden><%= @room.id %></div>
+      <button id="chat-button" class="btn btn-primary">投稿する</button>
+      <br>
+      <br>
+      <%= link_to "マイページへ戻る", user_path(current_user.id) %>
+    </div>
+  </div>
+</div>

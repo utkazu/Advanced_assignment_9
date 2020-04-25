@@ -13,9 +13,14 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: [:create, :destroy]
+  resources :chats, only: [:create]
+  resources :rooms, only: [:create, :show, :index]
+
   post 'favorites/:book_id/create' => 'favorites#create'
   post 'favorites/:book_id/destroy' => 'favorites#destroy'
   post 'book_comments/:book_id/create' => 'book_comments#create'
   post 'book_comments/:book_comment_id/destroy' => 'book_comments#destroy'
   post 'search' => 'search#search'
+
+  mount ActionCable.server => '/cable'
 end

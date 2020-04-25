@@ -4,7 +4,10 @@ class BooksController < ApplicationController
 	def index
 		@user = User.find(current_user.id)
     @book = Book.new
-    @books = Book.all
+		@books = Book.all
+
+		@currentUserEntry = UserRoom.where(user_id: current_user.id)
+    @userEntry = UserRoom.where(user_id: @user.id)
 	end
 
 	def show
@@ -13,6 +16,9 @@ class BooksController < ApplicationController
 		@book_new = Book.new
 		@comments = BookComment.where(book_id: @book.id).order(:id)
 		@comment = BookComment.new
+
+		@currentUserEntry = UserRoom.where(user_id: current_user.id)
+    @userEntry = UserRoom.where(user_id: @user.id)
 	end
 
 	def create
